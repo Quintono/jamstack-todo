@@ -2,6 +2,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "dotenv": "^8.2.0",
+    "framer-motion": "^1.10.3",
     "gatsby": "^2.21.29",
     "react": "^16.13.1",
     "react-dom": "^16.13.1"

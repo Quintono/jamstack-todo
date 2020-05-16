@@ -3,6 +3,7 @@ import axios from "axios";
 import styles from "./index.module.css";
 import Todo from "../components/todo";
 import Form from "../components/form";
+import { motion } from "framer-motion";
 
 export default () => {
   const [status, setStatus] = useState("loading");
@@ -36,18 +37,26 @@ export default () => {
 
   const reloadTodos = () => setStatus("loading");
 
+  const list = { show: { opacity: 1 } };
+  const item = { show: { x: 0, opacity: 1 }, hidden: { x: "-100%" } };
+
   return (
     <main>
       <h1 className={styles.heading}>JAMstack Todos</h1>
       <Form reloadTodos={reloadTodos} />
       {todos ? (
-        <ul className={styles.todos}>
+        <motion.ul className={styles.todos} animate="show" variants={list}>
           {todos.map((todo) => (
-            <li key={todo._id} className={styles.todo}>
+            <motion.li
+              key={todo._id}
+              className={styles.todo}
+              animate={status == "loading" ? "hidden" : "show"}
+              variants={item}
+            >
               <Todo todo={todo} reloadTodos={reloadTodos} />
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </motion.ul>
       ) : (
         <p className={styles.loading}>loading todos...</p>
       )}
